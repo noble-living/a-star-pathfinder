@@ -1,0 +1,27 @@
+#include <IRremote.h>
+
+// Define the IR transmitter pin (connect the IR LED here)
+#define IR_LED_PIN 3
+
+IRsend irsend;
+
+void setup() {
+  // Initialize the IR transmitter
+  irsend.begin();
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Send an IR signal to control a device (e.g., TV power)
+  sendIRSignal();
+  delay(5000); // Wait for 5 seconds before sending another signal
+}
+
+void sendIRSignal() {
+  // IR codes for controlling various devices
+  unsigned int tvPowerCode[] = {0xE0E040BF, 32}; // Example: TV power button
+
+  // Send the IR signal
+  irsend.sendRaw(tvPowerCode, tvPowerCode[1]);
+  Serial.println("IR signal sent.");
+}
